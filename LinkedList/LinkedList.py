@@ -43,7 +43,7 @@ class LinkedList():
         nodeToDelete = self.head.getNextNode()
         connectToHead = nodeToDelete.getNextNode()
         self.head.setNextNode(connectToHead)
-        self.size += 1
+        self.size -= 1
 
 
      #Check test case -- not found    
@@ -57,11 +57,14 @@ class LinkedList():
             
             if (currentNode.getData() == data):
                 self.head.setNextNode(nextNode)#to delete at first node in list
-                print("Deleted")#Garbage collector will delete
+                self.size -= 1
+                print("Deleted")#Garbage collector will delete object
                 break
 
+            #Excludes the item from the list, if found
             elif (nextNode != None and nextNode.getData() == data):
                 currentNode.setNextNode(nextNode.getNextNode())
+                self.size -= 1
                 break
             
             elif(not currentNode.getNextNode()):
@@ -99,15 +102,4 @@ class LinkedList():
             elif(not pointer.getNextNode()):
                 print("Not found")
                 break
-
-
-#test
-
-ll = LinkedList()
-for i in range(1,11,1):
-    ll.insert(i)
-ll.display()
-for i in range(1,15,3):
-    ll.deleteNodeWithDataOf(i)
-ll.display()
 
